@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.LqcSpringBoot.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.example.LqcSpringBoot.model.Orders" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="bz" property="bz" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="VARCHAR" />
+    <result column="cid" property="cid" jdbcType="VARCHAR" />
+    <result column="balance" property="balance" jdbcType="VARCHAR" />
+    <result column="ssxs" property="ssxs" jdbcType="VARCHAR" />
+    <result column="month" property="month" jdbcType="VARCHAR" />
+    <result column="pay" property="pay" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <!--查询数据-->
+  <select id="selectDataByDateAndSsxs" resultType="java.lang.String">
+    select `name` from orders   where
+                                    1=1
+    <if test="month != null and month != ''">
+      AND month =#{month}
+    </if>
+
+    <if test="ssxs != null and ssxs != ''">
+      AND ssxs =#{ssxs}
+    </if>
+    GROUP BY `name`
+  </select>
+  <!--查询数据-->
+  <select id="selectDataByDateAndSsxssales" resultType="java.lang.String">
+    select sum(money) as sales from orders   where 1=1
+    <if test="month != null and month != ''">
+      AND month =#{month}
+    </if>
+
+    <if test="ssxs != null and ssxs != ''">
+      AND ssxs =#{ssxs}
+    </if>
+    GROUP BY `name`
+
+  </select>
+  <!--查询数据-->
+  <select id="selectDataByDateAndSsxsbalance" resultType="java.lang.String">
+    select sum(balance) as balance from orders   where 1=1
+    <if test="month != null and month != ''">
+    AND month =#{month}
+    </if>
+
+    <if test="ssxs != null and ssxs != ''">
+      AND ssxs =#{ssxs}
+    </if>
+    GROUP BY `name`
+  </select>
+  <!--查询数据-->
+  <select id="selectDataByDateAndSsxsnumorder" resultType="java.lang.String">
+    select count(1) as numorder from orders   where 1=1
+    <if test="month != null and month != ''">
+      AND month =#{month}
+    </if>
+
+    <if test="ssxs != null and ssxs != ''">
+      AND ssxs =#{ssxs}
+    </if>
+    GROUP BY `name`
+  </select>
+  <!--查询数据-->
+  <select id="selectxsblance" resultType="java.util.Map">
+    select sum(balance) as balance ,sum(money) as sales from orders   where 1=1
+    <if test="month != null and month != ''">
+      AND month =#{month}
+    </if>
+
+    <if test="ssxs != null and ssxs != ''">
+      AND ssxs =#{ssxs}
+    </if>
+  </select>
+  <select id="selectTjdataB" resultType="java.lang.Integer">
+    SELECT sum(balance) as b from orders
+  </select>
+
+  <select id="selectOrderByCid" resultMap="BaseResultMap">
+    select * from orders as ss where ss.cid = #{id}
+  </select>
+
+  <select id="selectRlt" resultMap="BaseResultMap">
+    select date,sum(money) as money from orders group by date
+  </select>
+
+</mapper>

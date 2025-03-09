@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="">
+    <title>Good Life backstage</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="/vue/element-ui.min.css">
+</head>
+<style>
+    textarea {  height: 200px; }
+</style>
+<body>
+<!--html代码 -->
+</div>
+<div id="app">
+    <el-row style="text-align: center;">
+        <el-col :span="24"><div class="grid-content bg-purple-dark"><el-link type="primary" disabled style="font-size: 20px;">数据配置（Data Configuration）</el-link></div></el-col>
+    </el-row>
+    <br>
+    <el-card class="box-card">
+    <el-row>
+        <el-col :span="12"><div class="grid-content bg-purple">
+            <el-form ref="form" :model="form" label-width="200px">
+                <el-form-item label="图片名称(picture name)">
+                    <el-input v-model="form.pname" :disabled="true" placeholder="set product name"></el-input>
+                </el-form-item>
+                <el-form-item label="产品路径(product url)">
+                    <el-input v-model="form.purl" :disabled="true" placeholder="set product url" ></el-input>
+                </el-form-item>
+                <el-form-item label="产品价格(product price)">
+                    <el-input v-model="form.price" placeholder="set product price" ></el-input>
+                </el-form-item>
+                <el-form-item label="图片类别(picture type)">
+                    <el-select v-model="form.ptype" placeholder="select product type" style="width: 100%;" clearable>
+                        <el-option label="音响（Audio）" value="Audio"></el-option>
+                        <el-option label="电视（TV）" value="TV"></el-option>
+                        <el-option label="燃气灶（GasStove）" value="GasStove"></el-option>
+                        <el-option label="电热水壶（ElectricKettles）" value="ElectricKettles"></el-option>
+                        <el-option label="电熨斗（ElectricIron）" value="ElectricIron"></el-option>
+                        <el-option label="烤箱（Ovens）" value="Ovens"></el-option>
+                        <el-option label="榨汁机（Juicers）" value="Juicers"></el-option>
+                        <el-option label="太阳能照明（Solarlighting）" value="Solarlighting"></el-option>
+                        <el-option label="员工照片（employ picture）" value="emp"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="产品详情（product detail）">
+                    <el-input type="textarea" v-model="form.detail" placeholder="set product detill" ></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="onSubmit">保存提交 submit</el-button>
+                </el-form-item>
+            </el-form>
+
+
+
+        </div></el-col>
+        <el-col :span="12" style="text-align: center;"><div class="grid-content bg-purple-light">
+            <!--<el-upload
+                    class="upload-demo"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :file-list="fileList"
+                    list-type="picture">
+                <el-button size="small" type="primary">点击上传 <br>clicks upload</el-button>
+                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb <br> can you just upload jpg/png type file. and in 500kb</div>
+            </el-upload>-->
+
+
+            <el-upload
+                    class="upload-demo"
+                    ref="upload"
+                    action="/upload/ups"
+                    :on-preview="handlePreview"
+                    :on-change="handleChange"
+                    :on-remove="handleRemove"
+                    :file-list="fileList"
+                    :auto-upload="false">
+                <el-button slot="trigger" size="small" type="primary">选取文件<br> select file</el-button>
+                <!--<el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器 <br> Upload server</el-button>-->
+                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb <br> can you just upload jpg/png type file. and in 500kb</div>
+            </el-upload>
+
+
+
+
+
+        </div></el-col>
+    </el-row>
+    </el-card>
+    <!--列表-->
+    <template>
+        <el-table
+                :data="tableData"
+                style="width: 100%">
+            <el-table-column
+                    prop="pname"
+                    label="照片名称"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="purl"
+                    label="照片路径"
+                    width="300">
+            </el-table-column>
+            <el-table-column
+                    prop="detail"
+                    label="详情"
+                    width="250">
+            </el-table-column>
+            <el-table-column
+                    prop="ptype"
+                    label="照片属性"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    label="日期"
+                    width="220">
+                <template slot-scope="scope">
+                    <i class="el-icon-time"></i>
+                    <span style="margin-left: 10px">{{ scope.row.tim }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column label="操作" style="width: 100px; text-align: right;">
+                <template slot-scope="scope">
+                    <el-button
+                            size="mini"
+                            type="danger"
+                            @click="handleDelete(scope.row.id)">删除</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+    </template>
+
+</div>
+</body>
+<script src="/vue/jquery.min.js"></script>
+<script src="/vue/vue.min.js"></script>
+<script src="/vue/element-ui.min.js"></script>
+<script src="/js/coment.js"></script>
+<script src="/js/backstage.js"></script>
+</html>

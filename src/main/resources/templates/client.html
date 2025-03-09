@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="">
+    <title>Client</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="/vue/element-ui.min.css">
+    <link rel="stylesheet" href="/vue/base.css">
+</head>
+<style>
+    .transition-box {
+        margin-bottom: 2px;
+        width: 250px;
+        height: 100px;
+        border-radius: 4px;
+        background-color: #055d2b;
+        text-align: center;
+        color: #fff;
+        padding: 10px 20px;
+        box-sizing: border-box;
+        margin-right: 190px;
+    }
+    .transition-boxs {
+        margin-bottom: 2px;
+        width: 250px;
+        height: 100px;
+        border-radius: 4px;
+        background-color: #e56f27;
+        text-align: center;
+        color: #fff;
+        padding: 10px 20px;
+        box-sizing: border-box;
+        margin-right: 190px;
+    }
+    .transition-boxss {
+        margin-bottom: 2px;
+        width: 250px;
+        height: 100px;
+        border-radius: 4px;
+        background-color: #66a4f3;
+        text-align: center;
+        color: #fff;
+        padding: 10px 20px;
+        box-sizing: border-box;
+        margin-right: 190px;
+    }
+    .transition-boxo {
+        margin-bottom: 2px;
+        width: 250px;
+        height: 100px;
+        border-radius: 4px;
+        background-color: #cd53ef;
+        text-align: center;
+        color: #fff;
+        padding: 10px 20px;
+        box-sizing: border-box;
+        margin-right: 190px;
+    }
+    .customRow {
+        background-color: #2372e8; /* 这里设置了默认的背景颜色 */
+    }
+
+</style>
+<body>
+<!--html代码 -->
+</div>
+<div id="app">
+    <el-row>
+        <el-col :span="24"><div class="grid-content bg-purple-dark" style="text-align: center;"><el-link type="" style="font-size: 35px;" disabled>客户跟进帮助系统</el-link></div>
+            <div style="text-align: center;color: #e82c49; font-size: 15px;"><strong>注意：凡超72小时未跟进的客户系统会自动提示标签名字和跟进指示会变红</strong> </div>
+        </el-col>
+    </el-row><br><br>
+
+    <!--<template>
+        <div style="text-align: center;">
+            <div style="display: flex; margin-top: 20px; height: 100px;">
+                <transition name="el-fade-in-linear">
+                    <Strong><div v-show="show" class="transition-box">follow persons now <br> <span style="font-size: 35px;">12</span></div></Strong>
+                </transition>
+                <transition name="el-fade-in">
+                    <Strong><div v-show="show" class="transition-boxs">CLIENTS TOTAL<br> <span style="font-size: 35px;">22</span></div></Strong>
+                </transition>
+                <transition name="el-fade-in">
+                    <Strong><div v-show="show" class="transition-boxss">BALANCE TOTAL<br> <span style="font-size: 35px;">22</span></div></Strong>
+                </transition>
+            </div>
+        </div>
+    </template>-->
+    <el-row :gutter="20">
+        <el-col :span="6">
+            <transition name="el-zoom-in-center">
+                    <Strong><div v-show="show" class="transition-box">FOLLOW PERSONS NOW<br> <span style="font-size: 35px;" id="a">00</span></div></Strong>
+            </transition>
+            <div class="grid-content bg-purple"></div></el-col>
+        <el-col :span="6">
+            <div class="grid-content bg-purple">
+            <transition name="el-zoom-in-center">
+                <Strong><div v-show="show" class="transition-boxss">BALANCE TOTAL<br> <span style="font-size: 35px;" id="b">00</span></div></Strong>
+            </transition>
+        </div>
+        </el-col>
+        <el-col :span="6"><div class="grid-content bg-purple">
+            <transition name="el-zoom-in-center">
+                <Strong><div v-show="show" class="transition-boxs">CLIENTS TOTAL<br> <span style="font-size: 35px;" id="c">00</span></div></Strong>
+            </transition>
+        </div></el-col>
+        <el-col :span="6"><div class="grid-content bg-purple">
+            <transition name="el-zoom-in-center">
+                <Strong><div v-show="show" class="transition-boxo">PEYMENTS PEOPLE TOTAL<br> <span style="font-size: 35px;" id="d">00</span></div></Strong>
+            </transition>
+        </div></el-col>
+    </el-row><br>
+    <el-row :gutter="20">
+        <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center">
+            <transition name="el-zoom-in-center">
+                <Strong><div v-show="show" class="" id="e" style="width: 500px; height: 350px;"></div></Strong>
+            </transition>
+        </div></el-col><br>
+        <el-col :span="17"><div class="grid-content bg-purple" style="text-align: right">
+
+            <el-form ref="formorder" :model="formorder" label-width="100px">
+                <el-row :gutter="20">
+                    <el-col :span="7"><div class="grid-content bg-purple">
+                        <el-form-item label="month">
+                            <el-date-picker
+                                    v-model="formorder.date"
+                                    type="month"
+                                    value-format="MM"
+                                    placeholder="选择月"/>
+                        </el-form-item></div></el-col>
+                    <el-col :span="7"><div class="grid-content bg-purple">
+                        <el-form-item label="所属销售">
+                            <el-select v-model="formorder.ssxs" placeholder="请选择销售员" clearable>
+                                <el-option label="Anna" value="Anna"></el-option>
+                                <el-option label="jason" value="jason"></el-option>
+                                <el-option label="Tony" value="Tony"></el-option>
+                                <el-option label="Other" value="Other"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </div></el-col>
+                    <el-col :span="10">
+                        <div class="grid-content bg-purple-light" style="text-align: left">
+                            <el-button type="primary" @click="Searchd">Search</el-button>&nbsp;&nbsp;&nbsp;
+                            <span>本月总销售额：<strong style="color: darkred;font-size: 30px;"><span id="xse" >0000</span></strong>$<!--<span> 欠款：<strong style="color: darkred;font-size: 30px;"><span id="qk" >000</span></strong>$</span>--></span>
+                        </div></el-col>
+                </el-row>
+            </el-form>
+            <div id="sa" style="height: 300px; width: 100%"></div>
+        </div></el-col>
+    </el-row>
+    <div id="rlt" style="width: 100%;height: 250px;"></div>
+    <!-- 搜索栏目-->
+            <el-form ref="forms" :model="forms" label-width="100px">
+                <el-row :gutter="20">
+                    <el-col :span="4"><div class="grid-content bg-purple">
+                        <el-form-item label="Client Name">
+                            <el-input v-model="forms.name" clearable></el-input>
+                        </el-form-item></div></el-col>
+                    <el-col :span="4"><div class="grid-content bg-purple-light">
+                        <el-form-item label="Client Phone">
+                            <el-input v-model="forms.phone" clearable></el-input>
+                        </el-form-item></div></el-col>
+                    <el-col :span="4"><div class="grid-content bg-purple">
+                        <el-form-item label="Client Level">
+                            <el-input v-model="forms.xydj" clearable></el-input>
+                        </el-form-item></div></el-col>
+                    <el-col :span="4"><div class="grid-content bg-purple">
+                        <el-form-item label="所属销售">
+                            <el-select v-model="forms.ssxs" placeholder="请选择销售员" clearable>
+                                <el-option label="Anna" value="Anna"></el-option>
+                                <el-option label="jason" value="jason"></el-option>
+                                <el-option label="Tony" value="Tony"></el-option>
+                                <el-option label="Other" value="Other"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </div></el-col>
+                    <el-col :span="4">
+                        <div class="grid-content bg-purple-light" style="text-align: right">
+                            <el-button type="primary" @click="Search">Search</el-button>
+                            <el-button type="success" @click="addclient">add client</el-button>
+                        </div></el-col>
+                    <el-col :span="4">
+                        <div class="grid-content bg-purple-light" style="text-align: left">
+                            <el-upload
+                                    ref="upload"
+                                    action="/dr"
+                                    :on-preview="handlePreview"
+                                    :on-remove="handleRemove"
+                                    :file-list="fileList"
+                                    :auto-upload="false">
+
+                                <el-button slot="trigger" size=""style="background-color: #601934;text-align: right;border: #601934;color: #FFFFFF">SELECT FILE</el-button>
+                                <el-button size="" style="background-color: #66a4f3;border: #66a4f3;text-align: right;color: #FFFFFF" @click="importExcel">
+                                    IMPORT
+                                </el-button>
+                            </el-upload></div></el-col>
+                </el-row>
+            </el-form>
+    </el-row><br>
+
+    <!--:cell-style="{ background: '#0DC4C2FF', color: '#000' }"
+    :header-cell-style="{ background: '#0DC4C2FF', color: '#000' }"-->
+    <!--列表-->
+            <template>
+                <el-table
+                        :summary-method="getSummaries"
+                        show-summary
+                        :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+                        :sort-by = "{prop: 'flag', order: 'descending'}"
+                        border
+                        @cell-dblclick="gjxq"
+                        style="width: 100%">
+                    <!--<el-table-column
+                            label="FISTTIME"
+                            prop="date"
+                            type="datetime"
+                            width="200">
+                    </el-table-column>-->
+                    <el-table-column
+                            label="所属销售"
+                            prop="ssxs"
+                            width="100">
+                    </el-table-column>
+                    <el-table-column
+                            label="跟进指示"
+                            prop="flag"
+                            sortable
+                            width="120">
+                        <template slot-scope="scope">
+                            <span  v-if="scope.row.flag ==='1'" style="color: #ef0a47;">待跟进</span>
+                            <span  v-if="scope.row.flag ==='2'" style="color: #0a0801;">正常</span>
+                        </template>
+
+                    </el-table-column>
+                    <el-table-column
+                            label="NAME"
+                            prop="name"
+                            width="200">
+                        <template slot-scope="scope">
+                            <el-tag
+                                    :type="scope.row.flag === '1' ? 'danger' : ''"
+                                    disable-transitions>{{scope.row.name}}</el-tag>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                            label="信誉等级"
+                            prop="xydj"
+                            width="90">
+                        <template slot-scope="scope">
+                                <i class="el-icon-medal-1" v-if="scope.row.xydj ==='1'" style="color: #f3d14d; font-size: 30px;"></i></span>
+                                <i class="el-icon-medal" v-if="scope.row.xydj ==='2'" style="color: #696559;font-size: 30px;"></i></span>
+                        </template>
+
+                    </el-table-column>
+                    <el-table-column
+                            label="SEX"
+                            prop="sex"
+                            width="60">
+                    </el-table-column>
+                    <el-table-column
+                            label="FollowDate"
+                            prop="gjdate"
+                            type="datetime"
+                            width="200">
+                    </el-table-column>
+                    <el-table-column
+                            label="PHONE"
+                            prop="phone"
+                            width="130">
+                    </el-table-column>
+                    <el-table-column
+                            label="BALANCE"
+                            prop="blance"
+                            width="100">
+                        <template slot-scope="scope">
+                            <span style="color: #930707;"><strong>{{scope.row.balance}}</strong></span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                            label="额度"
+                            prop="ed"
+                            width="100">
+                    </el-table-column>
+                    <el-table-column
+                            label="ADDRESS"
+                            prop="address"
+                            width="200">
+                    </el-table-column>
+                    <el-table-column
+                            label="跟进说明"
+                            prop="bz"
+                            width="400">
+                        <template slot-scope="scope">
+                            <span style="color: #930707;">{{scope.row.bz}}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                            align="right" fixed="right" width="350"><!--
+                        <template slot="header" slot-scope="scope" >
+                            <el-input
+                                    v-model="search"
+                                    size="mini"
+                                    placeholder="输入关键字搜索"/>
+                        </template>-->
+
+                        <template slot-scope="scope">
+                            <el-button-group>
+                                <el-button
+                                        size="mini"
+                                        @click="OrderDetail(scope.row.id)">OrderDetail</el-button>
+                                <el-button
+                                        size="mini"
+                                        type="danger"
+                                        @click="rowDelete(scope.row.id)">Delete</el-button>
+                                <el-button
+                                        size="mini"
+                                        type="primary"
+                                        @click="gj(scope.row.id)">Follow</el-button>
+                                <el-button
+                                        size="mini"
+                                        type="warning"
+                                        @click="getorder(scope.row.id)">new Order</el-button>
+                            </el-button-group>
+
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <!--货柜详情信息分页-->
+                <div class="block" style="text-align: center;">
+                    <br>
+                    <el-pagination
+                            @size-change="handleSizeChange"
+                            @current-change="handleCurrentChange"
+                            :current-page="currentPage"
+                            :page-sizes="[100,200,550,1000]"
+                            :page-size="pagesize"
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :total="tableData.length">
+                    </el-pagination>
+                </div>
+            </template>
+    <!--orders detail -->
+    <el-dialog
+            title="orders detail"
+            :visible.sync="ordersdetail"
+            width="80%">
+        <template>
+            <el-table
+                    :data="tableDataorder"
+                    border
+                    height="400"
+                    style="width: 100%">
+                <el-table-column
+                        label="ORDER DATE"
+                        prop="date"
+                        type="datetime"
+                        width="200">
+                </el-table-column>
+                <el-table-column
+                        label="NAME"
+                        prop="name"
+                        width="100">
+                </el-table-column>
+                <el-table-column
+                        label="PHONE"
+                        prop="phone"
+                        width="200">
+                </el-table-column>
+                <el-table-column
+                        label="TOTAL"
+                        prop="money"
+                        width="80">
+                </el-table-column>
+                <el-table-column
+                        label="BALANCE"
+                        prop="blance"
+                        width="100">
+                    <template slot-scope="scope">
+                        <span style="color: #930707;"><strong>{{scope.row.balance}}</strong></span>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        label="所属销售"
+                        prop="ssxs"
+                        width="60">
+                </el-table-column>
+                <el-table-column
+                        label="月份"
+                        prop="month"
+                        width="60">
+                </el-table-column>
+                <el-table-column
+                        label="支付金额"
+                        prop="pay"
+                        width="60">
+                </el-table-column>
+                <el-table-column
+                        label="备注"
+                        prop="bz"
+                        width="400">
+                    <template slot-scope="scope">
+                        <span style="color: #930707;">{{scope.row.bz}}</span>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </template>
+
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="ordersdetail = false">return</el-button>
+        </span>
+    </el-dialog>
+    <!-- follow tetail-->
+    <el-dialog
+            title="follow tetail"
+            :visible.sync="gjtetail"
+            width="60%">
+        <template>
+            <el-table
+                    :data="tableDatafollow"
+                    border
+                    height="400"
+                    style="width: 100%">
+                <el-table-column
+                        label="所属销售"
+                        prop="ssxs"
+                        width="100">
+                </el-table-column>
+                <el-table-column
+                        label="NAME"
+                        prop="name"
+                        width="200">
+                    <template slot-scope="scope">
+                        <el-tag
+                                :type="scope.row.flag === '1' ? 'danger' : ''"
+                                disable-transitions>{{scope.row.name}}</el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        label="SEX"
+                        prop="sex"
+                        width="60">
+                </el-table-column>
+                <el-table-column
+                        label="FollowDate"
+                        prop="gjdate"
+                        type="datetime"
+                        width="200">
+                </el-table-column>
+                <el-table-column
+                        label="BALANCE"
+                        prop="blance"
+                        width="100">
+                    <template slot-scope="scope">
+                        <span style="color: #930707;"><strong>{{scope.row.balance}}</strong></span>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        label="跟进说明"
+                        prop="bz"
+                        width="400">
+                    <template slot-scope="scope">
+                        <span style="color: #930707;">{{scope.row.bz}}</span>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </template>
+
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="gjtetail = false">return</el-button>
+        </span>
+    </el-dialog>
+
+    <!-- add new client page-->
+    <el-dialog
+            title="follow client"
+            :visible.sync="gjdialogVisible"
+            width="40%">
+        <el-form ref="formd" :model="formd" label-width="150px">
+
+            <el-form-item label="欠款">
+                <el-input v-model="formd.balance"></el-input>
+            </el-form-item>
+            <el-form-item label="跟进说明">
+                <el-input type="textarea" v-model="formd.bz"></el-input>
+            </el-form-item>
+        </el-form>
+
+        <span slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="follow">follow</el-button>
+    <el-button @click="gjdialogVisible = false">return</el-button>
+  </span>
+    </el-dialog>
+
+    <!-- add new client page-->
+    <el-dialog
+            title="add client"
+            :visible.sync="dialogVisible"
+            width="40%">
+        <el-form ref="formc" :model="formc" label-width="150px">
+            <el-form-item label="所属销售">
+                <el-select v-model="formc.ssxs" placeholder="请选择销售员">
+                    <el-option label="Anna" value="Anna"></el-option>
+                    <el-option label="jason" value="jason"></el-option>
+                    <el-option label="Tony" value="Tony"></el-option>
+                    <el-option label="Other" value="Other"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="Client Name">
+                <el-input v-model="formc.name"></el-input>
+            </el-form-item>
+            <el-form-item label="Client Phone">
+                <el-input v-model="formc.phone"></el-input>
+            </el-form-item>
+            <el-form-item label="欠款额度">
+                <el-input v-model="formc.ed"></el-input>
+            </el-form-item>
+            <el-form-item label="欠款">
+                <el-input v-model="formc.balance"></el-input>
+            </el-form-item>
+            <el-form-item label="SEX">
+                <el-select v-model="formc.sex" placeholder="select sex please">
+                    <el-option label="M" value="M"></el-option>
+                    <el-option label="F" value="F"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="信誉等级">
+                <el-select v-model="formc.xydj" placeholder="请选择信誉等级">
+                    <el-option label="一级" value="1"></el-option>
+                    <el-option label="二级" value="2"></el-option>
+                </el-select>
+            </el-form-item>
+            <!--<el-form-item label="活动时间">
+                <el-col :span="11">
+                    <el-date-picker type="date" placeholder="选择日期" v-model="formc.gjdate" style="width: 100%;"></el-date-picker>
+                </el-col>
+                <el-col class="line" :span="2">-</el-col>
+                <el-col :span="11">
+                    <el-time-picker placeholder="选择时间" v-model="formc.date2" style="width: 100%;"></el-time-picker>
+                </el-col>
+            </el-form-item>-->
+            <el-form-item label="payments plan">
+                <el-switch v-model="formc.zq"></el-switch>
+            </el-form-item>
+            <el-form-item label="Market address">
+                <el-select v-model="formc.address" placeholder="select address please">
+                    <el-option label="mubovre" name="mubovre"></el-option>
+                    <el-option label="Town" value="Town"></el-option>
+                    <el-option label="Gulf" value="Gulf"></el-option>
+                    <el-option label="Dragm" value="Dragm"></el-option>
+                    <el-option label="other" value="other"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="备注">
+                <el-input type="textarea" v-model="formc.bz"></el-input>
+            </el-form-item>
+            <!--<el-form-item>
+                <el-button type="primary" @click="onSubmit">Add Client</el-button>
+                <el-button>Back</el-button>
+            </el-form-item>-->
+        </el-form>
+
+        <span slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="onSubmit">Add Client</el-button>
+    <el-button @click="dialogVisible = false">return</el-button>
+  </span>
+    </el-dialog>
+
+    <!-- get new order-->
+    <el-dialog
+            title="New Order"
+            :visible.sync="orderdlog"
+            width="40%">
+        <el-form ref="formo" :model="formo" label-width="150px">
+
+            <el-form-item label="支付金额">
+                <el-input v-model="formo.pay"></el-input>
+            </el-form-item>
+            <el-form-item label="跟进说明">
+                <el-input type="textarea" v-model="formo.bz"></el-input>
+            </el-form-item>
+            <el-form-item label="订单金额">
+                <el-input v-model="formo.money"></el-input>
+            </el-form-item>
+        </el-form>
+
+        <span slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="addorder">add order</el-button>
+    <el-button @click="orderdlog = false">return</el-button>
+  </span>
+    </el-dialog>
+
+</div>
+</body>
+<script src="/vue/jquery.min.js"></script>
+<script src="/vue/vue.min.js"></script>
+<script src="/vue/element-ui.min.js"></script>
+<script src="/dist/echarts.js"></script>
+<script src="/js/e.js"></script>
+<script src="/js/coment.js"></script>
+<script src="/js/client.js"></script>
+</html>
