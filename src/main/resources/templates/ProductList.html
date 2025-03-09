@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head xmlns:th="http://www.w3.org/1999/xhtml">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Afiron</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="renderer" content="webkit">
+    <!-- 引入样式 -->
+    <!--<link rel="stylesheet" href="/vue/element-ui.min.css">-->
+    <link rel="stylesheet" th:href="@{https://unpkg.com/element-ui/lib/theme-chalk/index.css}">
+</head>
+<style type="text/css">
+    html,body{height:100%;}
+    body,*{margin:0;padding:0;text-decoration:none; border:0;list-style-type: none;}
+    body{ margin:0px;font-family: "微软雅黑","宋体",Arial;background-color:#ffffff;line-height:1.8;font-size:14px;}
+    input[type="submit"],input[type="reset"],input[type="button"],button { -webkit-appearance: none; }
+    .wrappers{width:100%; min-height:100%; padding:0px 0px 0px 0px;margin:0px auto;text-align:center;position: relative;overflow:hidden;}
+    @media screen and (min-width: 1200px) {
+        .wrappers{max-width:640px; }
+    }
+    .wrapper1{width:100%;margin:0px auto; text-align:center; position: relative;}
+    .wrapper2{width:100%;margin:0px auto; text-align:center; position: relative; overflow:hidden;}
+    .wrapper2 img{ float:left;}
+    .wrapper3{width:100%;margin:0px auto; text-align:left; position: relative; }
+    /*img{ max-width:100%; height:auto; max-width:100% !important; height:auto !important;}*/
+    .znfuqi{width:100%; margin:0px auto; text-align:center; position:absolute; z-index:99;}
+    .znfanhuisy{ display:none !important;}
+        .bgimg {
+        background:url("/imgs/img.png");
+        position: relative;
+        margin:0px auto;
+        width: 100%;
+        height: 120px;
+  }
+</style>
+<body class="">
+<!--html代码 -->
+<div id="app">
+    <div class="wrappers">
+        <el-row>
+<!--            <el-col :span="24"><div class="bg-purple-dark" style="height: 50px; color: #FFFFFF; text-align: center; font-size: 25px;"><strong>注册</strong></div></el-col>-->
+                        <el-col :span="24"><div class="bgimg"></div></el-col>
+
+        </el-row><br>
+        <div>
+            <!--<el-form ref="form" :model="form" status-icon :rules="rules" label-width="120px">
+                <el-form-item label="CPID" prop="cpid" style="display: none;">
+                    <el-input v-model="form.cpid" autocomplete="off" id="cpid" style="display: none;" oninput="if(value.length>100)value=value.slice(0,100)"></el-input>
+                </el-form-item>
+                <br><br><br><br><br>
+                <el-form-item label="选手本人手机号" prop="phone">
+                    <el-input v-model="form.phone" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="success" style="width: 100px; height: 100px;" @click="onSubmit" size="medium" circle>签到</el-button>
+                </el-form-item>
+            </el-form>-->
+            <template>
+                <el-tabs v-model="activeName" @tab-click="handleClick">
+                    <el-tab-pane label="Product" name="first" style="flood-color: #0C0C0C;">
+
+                            <el-col :span="10" v-for="(o, index) in 12" :key="o" :offset="index > 0 ? 2 : 0" style="text-align: center;">
+                                <el-card >
+                                    <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
+                                    <div>
+                                        <span>好吃的汉堡</span>
+                                        <div class="bottom clearfix">
+                                            <time class="time">Product Detail</time>
+                                            <el-button type="text" class="button">操作按钮</el-button>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </el-card>
+                            </el-col>
+
+                    </el-tab-pane>
+                    <!--<el-tab-pane label="配置管理" name="second">
+
+                    </el-tab-pane>
+                    <el-tab-pane label="角色管理" name="third">
+
+                    </el-tab-pane>
+                    <el-tab-pane label="定时任务补偿" name="fourth">
+
+                    </el-tab-pane>-->
+                </el-tabs>
+            </template>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/vue/jquery.min.js"></script>
+<script src="/vue/vue.min.js"></script>
+<script src="/vue/element-ui.min.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                activeName: 'first',
+                currentDate: new Date(),
+
+            };
+        },
+        //初始化
+        mounted: function () {
+
+        },
+        methods: {
+            handleClick(tab, event) {
+                console.log(tab, event);
+            }
+
+        }
+    })
+</script>
+<!--<script src="/echarts.js"></script>-->
+</html>
