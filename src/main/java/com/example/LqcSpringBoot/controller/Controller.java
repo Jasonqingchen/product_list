@@ -1,15 +1,18 @@
 package com.example.LqcSpringBoot.controller;
 
 
-import com.example.LqcSpringBoot.ut.MainPartimportBean;
+import com.example.LqcSpringBoot.mapper.ProductlistMapper;
+import com.example.LqcSpringBoot.model.Productlist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * to page
@@ -20,7 +23,7 @@ import java.io.InputStream;
 public class Controller {
 
     @Autowired
-    private MainPartimportBean mainPartimportBean;
+    private ProductlistMapper productlistMapper;
 
     /**
      * to index Product list page
@@ -30,25 +33,22 @@ public class Controller {
     public String tz (){
     return "ProductList";
     }
-
-
-
-
-
-    /**
-     * 导入
-     *
-     * @return
-     */
-    @RequestMapping("/dr")
-    public String dr(HttpServletRequest request, @RequestParam(required = false) MultipartFile file) throws IOException {
-        InputStream fileInputStream = null;
-        fileInputStream = file.getInputStream();
-        mainPartimportBean.insertDB(fileInputStream);
-        request.getSession().setAttribute("message", "导入成功");
-        request.getSession().setAttribute("url", "container/shouye");
-        return String.format("redirect:/message");
+    @RequestMapping("/indexs")
+    public String tzd (){
+        return "ProductDetail";
     }
 
+    @RequestMapping("/list")
+    @ResponseBody
+    public List<Productlist> selectByid() {
+        List<Productlist> lists = (List<Productlist>) productlistMapper.selectAll();
+        return lists;
+    }
+    @RequestMapping("/listbyid")
+    @ResponseBody
+    public Productlist listbyid(Productlist productlist) {
+        Productlist lists = (Productlist)productlistMapper.selectById(productlist.getId());
+        return lists;
+    }
 
 }

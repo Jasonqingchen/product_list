@@ -40,54 +40,43 @@
         height: 140px;
   }
 </style>
-
 <body class="">
 <!--html代码 -->
-<div id="app" style="background-color: #0C0C0C">
+<div id="app">
     <div class="wrappers">
-        <el-row>
-<!--            <el-col :span="24"><div class="bg-purple-dark" style="height: 50px; color: #FFFFFF; text-align: center; font-size: 25px;"><strong>注册</strong></div></el-col>-->
-                        <el-col :span="24"><div class="bgimg"></div></el-col>
-
-        </el-row><br>
+        <br>
         <div style="width: 95%;">
-            <!--<el-form ref="form" :model="form" status-icon :rules="rules" label-width="120px">
-                <el-form-item label="CPID" prop="cpid" style="display: none;">
-                    <el-input v-model="form.cpid" autocomplete="off" id="cpid" style="display: none;" oninput="if(value.length>100)value=value.slice(0,100)"></el-input>
-                </el-form-item>
-                <br><br><br><br><br>
-                <el-form-item label="选手本人手机号" prop="phone">
-                    <el-input v-model="form.phone" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="success" style="width: 100px; height: 100px;" @click="onSubmit" size="medium" circle>签到</el-button>
-                </el-form-item>
-            </el-form>-->
             <template>
-                <el-tabs v-model="activeName" @tab-click="handleClick">
-                    <el-tab-pane label="Product" name="first" style="text-align: right">
-                            <el-col span="12" v-for="(plist, i) in this.plist" :key="i">
-                                <div style="text-align: right;">
-                                    <div class="block" style="width: 90%;margin-left: 15px;" >
-                                        <a :href="'http://192.168.1.140:8089/plist/indexs?id='+plist.id">
+                <div style="text-align: center; margin-left: 20px;">
                                         <el-image
-                                                src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"></el-image></a>
-                                        <span class="demonstration"><span id="pname" style="color: #FFFFFF">{{plist.pname}}</span></span>
-                                    </div>
-                                </div>
-                            </el-col>
+                                                src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"></el-image>
+                    <div style="width: auto;margin-left: 20px;">
+                        <el-descriptions class="margin-top" title="PRODUCT DETAIL">
+                            <el-descriptions-item label="label">
+                                <el-tag size="small"><span id="tab"></span></el-tag>
+                            </el-descriptions-item>
+                        </el-descriptions>
+                        <el-descriptions class="margin-top" title="">
+                            <el-descriptions-item label="Product Name"><span id="pname"></span></el-descriptions-item><br>
+                        </el-descriptions>
+                        <el-descriptions class="margin-top" title="">
+                            <el-descriptions-item label="Size"><span id="size"></span></el-descriptions-item><br>
+                        </el-descriptions>
+                        <el-descriptions class="margin-top" title="">
+                            <el-descriptions-item label="Container number"><span id="cnumber"></span></el-descriptions-item><br>
+                        </el-descriptions>
+                        <el-descriptions class="margin-top" title="">
+                            <el-descriptions-item label="Connect Us">AFIRON</el-descriptions-item><br>
+                        </el-descriptions>
 
-                    </el-tab-pane>
-                    <!--<el-tab-pane label="配置管理" name="second">
+                        <el-image
+                                src="/imgs/logo1.PNG"  style="height: 300px"></el-image>
+                        <el-descriptions class="margin-top" title="">
+                            <el-descriptions-item label="Address ">中国广东佛山</el-descriptions-item>
+                        </el-descriptions>
+                    </div>
+                </div>
 
-                    </el-tab-pane>
-                    <el-tab-pane label="角色管理" name="third">
-
-                    </el-tab-pane>
-                    <el-tab-pane label="定时任务补偿" name="fourth">
-
-                    </el-tab-pane>-->
-                </el-tabs>
             </template>
         </div>
     </div>
@@ -103,31 +92,38 @@
             return {
                 activeName: 'first',
                 currentDate: new Date(),
-                pname:'',
-                plist:[]
 
             };
         },
         //初始化
         mounted: function () {
+            var queryString = window.location.search;
+
+            // 使用URLSearchParams API解析查询字符串
+            var urlParams = new URLSearchParams(queryString);
+
+            // 获取特定的参数
+            var id = urlParams.get('id');
+
             var newthis = this;
             //产品列表
-            var purl = '/plist/list';
+            var purl = '/plist/listbyid';
             $.ajax({
                 type: 'POST',
                 url: purl,
+                data:{'id':id},
                 dataType: 'json',
                 success: function (result) {
-                    for (var i = 0; i < result.length; i++) {
-                        newthis.plist.push(result[i]);
-                    }
+                    document.getElementById("pname").innerText=result.pname;
+                    document.getElementById("cnumber").innerText=result.cnumber;
+                    document.getElementById("size").innerText=result.size;
+                    document.getElementById("tab").innerText=result.label;
                 },
                 error: function () {
                     console.log('error submit!!');
                     return false;
                 }
             });
-
         },
         methods: {
             handleClick(tab, event) {

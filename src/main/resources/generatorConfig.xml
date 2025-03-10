@@ -24,8 +24,8 @@
             <property name="addRemarkComments" value="false"/>
         </commentGenerator>
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://8.134.191.139:3306/mydb" userId="root"
-                        password="root-ps@123456">
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/mydb" userId="root"
+                        password="root">
         </jdbcConnection>
 
         <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer true， 把 JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal -->
@@ -52,7 +52,7 @@
         </javaClientGenerator> -->
 
         <!-- table是用户指定的被生成相关信息的表，它必须在指定的jdbc连接中已经被建立。?是否可以多个 -->
-        <table tableName="client" enableCountByExample="true" enableUpdateByExample="true"
+        <table tableName="productlist" enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
 
     </context>
