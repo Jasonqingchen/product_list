@@ -33,9 +33,7 @@
     .znfuqi{width:100%; margin:0px auto; text-align:center; position:absolute; z-index:99;}
     .znfanhuisy{ display:none !important;}
         .bgimg {
-        background:url("/imgs/img_6.png");
-        position: relative;
-        margin:0px auto;
+        background:url("/imgs/img_2.png");
         width: 100%;
         height: 140px;
   }
@@ -45,11 +43,18 @@
 <!--html代码 -->
 <div id="app" style="background-color: #0C0C0C">
     <div class="wrappers">
-        <el-row>
-<!--            <el-col :span="24"><div class="bg-purple-dark" style="height: 50px; color: #FFFFFF; text-align: center; font-size: 25px;"><strong>注册</strong></div></el-col>-->
+        <template>
+            <el-carousel height="200px" direction="vertical" :autoplay="false">
+                <el-image
+                        src="/imgs/img_2.png" style="width: 100%;"></el-image>
+            </el-carousel>
+        </template>
+
+        <!--<el-row>
+           <el-col :span="24"><div class="bg-purple-dark" style="height: 50px; color: #FFFFFF; text-align: center; font-size: 25px;"><strong>注册</strong></div></el-col>
                         <el-col :span="24"><div class="bgimg"></div></el-col>
 
-        </el-row><br>
+        </el-row>-->
         <div style="width: 95%;">
             <!--<el-form ref="form" :model="form" status-icon :rules="rules" label-width="120px">
                 <el-form-item label="CPID" prop="cpid" style="display: none;">
