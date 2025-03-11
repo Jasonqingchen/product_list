@@ -49,7 +49,7 @@
             <template>
                 <div style="text-align: center; margin-left: 20px;">
                                         <el-image
-                                                src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"></el-image>
+                                                :src="this.purl"></el-image>
                     <div style="width: auto;margin-left: 20px;">
                         <el-descriptions class="margin-top" title="PRODUCT DETAIL">
                             <el-descriptions-item label="label">
@@ -92,6 +92,7 @@
             return {
                 activeName: 'first',
                 currentDate: new Date(),
+                purl:''
 
             };
         },
@@ -118,6 +119,7 @@
                     document.getElementById("cnumber").innerText=result.cnumber;
                     document.getElementById("size").innerText=result.size;
                     document.getElementById("tab").innerText=result.label;
+                    newthis.purl = result.purl;
                 },
                 error: function () {
                     console.log('error submit!!');
