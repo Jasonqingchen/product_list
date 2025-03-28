@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品展示页面</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .banner {
+            width: 100%;
+            height: 200px;
+            background: url('https://source.unsplash.com/800x200/?food') center/cover no-repeat;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .container {
+            margin-top: 220px;
+            padding: 15px;
+        }
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: space-between;
+        }
+        .product-item {
+            width: 48%;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding-bottom: 10px;
+        }
+        .product-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+        .product-title {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+        .product-price {
+            color: #ff5722;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="banner"></div>
+    <div class="container">
+        <el-row>
+            <el-col :span="24">
+                <h2>精选美食</h2>
+            </el-col>
+        </el-row>
+        <el-row class="product-list">
+            <el-col v-for="product in products" :key="product.id" class="product-item">
+                <img :src="product.image" alt="product.name">
+                <div class="product-title">{{ product.name }}</div>
+                <div class="product-price">￥{{ product.price }}</div>
+            </el-col>
+        </el-row>
+    </div>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            products: [
+                { id: 1, name: '红烧肉', price: 38, image: 'https://source.unsplash.com/150x120/?pork' },
+                { id: 2, name: '宫保鸡丁', price: 28, image: 'https://source.unsplash.com/150x120/?chicken' },
+                { id: 3, name: '鱼香肉丝', price: 25, image: 'https://source.unsplash.com/150x120/?fish' },
+                { id: 4, name: '麻婆豆腐', price: 22, image: 'https://source.unsplash.com/150x120/?tofu' }
+            ]
+        }
+    });
+</script>
+</body>
+</html>

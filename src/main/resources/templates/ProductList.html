@@ -15,6 +15,8 @@
     <!-- 引入样式 -->
     <!--<link rel="stylesheet" href="/vue/element-ui.min.css">-->
     <link rel="stylesheet" th:href="@{https://unpkg.com/element-ui/lib/theme-chalk/index.css}">
+    <script src="https://g.alicdn.com/de/prismplayer/2.8.7/aliplayer-min.js"></script>
+    <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/2.8.7/skins/default/aliplayer-min.css">
 </head>
 <style type="text/css">
     html,body{height:100%;}
@@ -33,66 +35,148 @@
     .znfuqi{width:100%; margin:0px auto; text-align:center; position:absolute; z-index:99;}
     .znfanhuisy{ display:none !important;}
         .bgimg {
-        background:url("/imgs/img_2.png");
+        background:url("/imgs/img.png");
         width: 100%;
         height: 140px;
-  }
+        }
+        #tab-first{
+            color: #FFFFFF;
+        }
+        #tab-second{
+            color: #FFFFFF;
+        }
+    .tabs-wrapper {
+        display: flex;
+    }
+    .custom-tabs .el-tabs__header {
+        flex: 0 0 auto; /* 使标签不随内容滚动 */
+    }
+    .custom-tabs .el-tabs__content {
+        flex: 0; /* 使内容部分填充剩余空间并允许滚动 */
+        overflow: auto; /* 允许内容滚动 */
+        height: 490px; /* 设置内容区域的高度 */
+    }
+    .banner {
+        width: 100%;
+        height: 200px;
+        background: url('/imgs/img.png') center/cover no-repeat;
+        position: fixed;
+        top: 0;
+        left: 0px;
+        z-index: 1000;
+    }
+    /* 全屏遮罩，背景色可根据品牌风格修改 */
+    #splash-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: #90bfef; /* 背景颜色 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        transition: opacity 1s ease-out;
+    }
+
+    /* Logo 样式 */
+    #logo {
+        width: 100%; /* 可根据需要调整 */
+        height: auto;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    /* 主页内容默认隐藏 */
+    #main-content {
+        display: none;
+        text-align: center;
+        padding: 10px;
+    }
+
+    /* Logo 淡入动画 */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.8); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
 </style>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(() => {
+            document.getElementById("splash-screen").style.opacity = "0";
+            setTimeout(() => {
+                document.getElementById("splash-screen").style.display = "none";
+                document.getElementById("main-content").style.display = "block";
+            }, 1500); // 1秒淡出后隐藏
+        }, 2500); // 1.5秒后开始淡出
+    });
 
-<body class="">
+</script>
+
+<body class="" style="background-color: #8a8484">
 <!--html代码 -->
-<div id="app" style="background-color: #0C0C0C">
-    <div class="wrappers">
-        <template>
-            <el-carousel height="200px" direction="vertical" :autoplay="false">
-                <el-image
-                        src="/imgs/img_2.png" style="width: 100%;"></el-image>
-            </el-carousel>
-        </template>
-
-        <!--<el-row>
-           <el-col :span="24"><div class="bg-purple-dark" style="height: 50px; color: #FFFFFF; text-align: center; font-size: 25px;"><strong>注册</strong></div></el-col>
-                        <el-col :span="24"><div class="bgimg"></div></el-col>
-
-        </el-row>-->
-        <div style="width: 95%;">
-            <!--<el-form ref="form" :model="form" status-icon :rules="rules" label-width="120px">
-                <el-form-item label="CPID" prop="cpid" style="display: none;">
-                    <el-input v-model="form.cpid" autocomplete="off" id="cpid" style="display: none;" oninput="if(value.length>100)value=value.slice(0,100)"></el-input>
-                </el-form-item>
-                <br><br><br><br><br>
-                <el-form-item label="选手本人手机号" prop="phone">
-                    <el-input v-model="form.phone" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="success" style="width: 100px; height: 100px;" @click="onSubmit" size="medium" circle>签到</el-button>
-                </el-form-item>
-            </el-form>-->
-            <template>
-                <el-tabs v-model="activeName" @tab-click="handleClick">
-                    <el-tab-pane label="Product" name="first" style="text-align: right">
-                            <el-col span="12" v-for="(plist, i) in this.plist" :key="i">
-                                <div style="text-align: right;">
-                                    <div class="block" style="width: 90%;margin-left: 15px;" >
-                                        <a :href="'http://192.168.1.140:8089/plist/indexs?id='+plist.id">
-                                        <el-image
-                                                :src="plist.purl"></el-image></a>
-                                        <span class="demonstration"><span id="pname" style="color: #FFFFFF">{{plist.pname}}</span></span>
+<div id="app">
+    <!-- 启动画面 -->
+    <div id="splash-screen">
+        <img src="/imgs/logo1.PNG" alt="品牌 Logo" id="logo">
+    </div>
+    <div class="wrappers" id="main-content">
+        <div class="banner">
+            <!--<video style="width:100%;height:200px;" src="/imgs/video.mp4" controls muted autoplay poster="/imgs/logo1.PNG"></video>-->
+        </div>
+        <div style="width: 100%;">
+            <template style="background-color: #8a8484;">
+                <el-tabs tab-position="left" @tab-click="handleClick"  style="margin-bottom: 0px;margin-top: 210px;background-color: #8a8484;height: 600px" class="custom-tabs" v-model="activeName">
+                    <el-tab-pane label="PRODUCT" name="1" class="ypco" style="text-align: center;color: #FFFFFF">
+                        <el-link type="danger"  style="">Pictures are for reference only <br> Click picture  get more </el-link>
+                        <el-divider></el-divider>
+                            <el-col span="20" v-for="(plist, i) in this.plist" :key="i">
+                                <div style="text-align: left;background-color: #8a8484;">
+                                    <div class="block">
+                                        <a :href="'http://8.138.196.22:8089/plist/indexs?id='+plist.id">
+                                            <el-image
+                                                    :src="plist.purl" style="width: 100%"></el-image></a>
+                                        <span class="demonstration"><span id="pname" style="color: #FFFFFF"><strong><i class="el-icon-s-cooperation" style="color: #dd6161"></i>&nbsp;{{plist.pname}}</strong></span></span>
+                                        <br>
                                     </div>
                                 </div>
+                                <br>
                             </el-col>
-
                     </el-tab-pane>
-                    <!--<el-tab-pane label="配置管理" name="second">
-
+                    <!--Hardware goods-->
+                    <el-tab-pane label="HARDWARE" name="2" class="ypco" style="text-align: center;color: #FFFFFF">
+                        <el-link type="danger"  style="">Pictures are for reference only <br> Click picture  get more </el-link>
+                        <el-divider></el-divider>
+                        <el-col span="20" v-for="(hplist, i) in this.hplist" :key="i">
+                            <div style="text-align: left;background-color: #8a8484;">
+                                <div class="block">
+                                    <a :href="'http://8.138.196.22:8089/plist/indexs?id='+hplist.id">
+                                        <el-image
+                                                :src="hplist.purl" style="width: 100%"></el-image></a>
+                                    <span class="demonstration"><span id="hpname" style="color: #FFFFFF"><strong><i class="el-icon-s-cooperation" style="color: #dd6161"></i>&nbsp;{{hplist.pname}}</strong></span></span>
+                                    <br>
+                                </div>
+                            </div>
+                            <br>
+                        </el-col>
                     </el-tab-pane>
-                    <el-tab-pane label="角色管理" name="third">
+                    <el-tab-pane label="COMPANY" name="3" style="color: #FFFFFF" class="ypco">
+                        <el-image
+                                src="/imgs/logo1.PNG" style="width: 50%;height: 150px"></el-image><br>
+                        <span>佛山显达通新材料有限公司成立于2024-09-18，所属行业为批发业，经营范围包含：一般项目：建筑陶瓷制品销售；卫生陶瓷制品销售；日用陶瓷制品销售；建筑材料销售；模具销售；金属材料销售；玩具销售；服装服饰批发；鞋帽批发；五金产品批发；家用电器销售；日用品批发；化工产品销售（不含许可类化工产品）；汽车零配件批发；建筑工程用机械销售；农业机械服务；国内贸易代理；国内货物运输代理；货物进出口。（除依法须经批准的项目外，凭营业执照依法自主开展经营活动）。佛山显达通新材料有限公司目前的经营状态为存续（在营、开业、在册）
+                    <br><br></span>
+                        <span>Foshan Xiandatong New Materials Co., Ltd. was established on September 18, 2024. It belongs to the wholesale industry. Its business scope includes: general projects: sales of architectural ceramic products; sales of sanitary ceramic products; sales of daily ceramic products; sales of building materials; sales of molds; sales of metal materials; sales of toys; wholesale of clothing and accessories; wholesale of shoes and hats; wholesale of hardware products; sales of household appliances; wholesale of daily necessities; sales of chemical products (excluding licensed chemical products); wholesale of auto parts; sales of machinery for construction projects; agricultural machinery services; domestic trade agency; domestic freight transportation agency; import and export of goods. (Except for projects that must be approved according to law, business activities are carried out independently in accordance with the law with a business license). The current business status of Foshan Xiandatong New Materials Co., Ltd. is ongoing (in operation, opened for business, and registered)</span>
+                        <el-divider>中国佛山</el-divider>
+                        </el-tab-pane>
+                    <!--<el-tab-pane label="角色管理" name="third">
 
                     </el-tab-pane>
                     <el-tab-pane label="定时任务补偿" name="fourth">
 
                     </el-tab-pane>-->
                 </el-tabs>
+
             </template>
         </div>
     </div>
@@ -106,10 +190,11 @@
         el: '#app',
         data() {
             return {
-                activeName: 'first',
+                activeName: '1',
                 currentDate: new Date(),
                 pname:'',
-                plist:[]
+                plist:[],
+                hplist:[]
 
             };
         },
@@ -124,7 +209,12 @@
                 dataType: 'json',
                 success: function (result) {
                     for (var i = 0; i < result.length; i++) {
-                        newthis.plist.push(result[i]);
+                        if (result[i].label == 'hardware'){
+                            newthis.hplist.push(result[i]);
+                        } else{
+                            newthis.plist.push(result[i]);
+                        }
+
                     }
                 },
                 error: function () {
@@ -132,7 +222,27 @@
                     return false;
                 }
             });
-
+            var player = new Aliplayer({
+                id: "player",
+                source: "/imgs/video.mp4", // 比如 https://your-video-url.com/video.mp4
+                width: "100%",
+                height: "80%",
+                muted:true,
+                crossorigin:true,
+                controls:false,
+                autoplay: true, // 是否自动播放，建议在移动端谨慎使用
+                isLive: false, // 是否为直播，根据实际情况设置
+                rePlay: {
+                    replayTimes: 1, // 回看次数，直播时设置
+                    replayDuration: 300 // 回看时长，单位为秒，直播时设置
+                },
+                playsinline: true, // 是否允许内联播放，适用于移动端
+                controlBarVisibility: 'always', // 控制条始终显示
+                useH5Prism: true, // 使用H5播放器内核，提高兼容性
+                coverpic: "封面图URL" // 设置视频封面图
+            }, function(player) {
+                console.log('播放器初始化成功');
+            });
         },
         methods: {
             handleClick(tab, event) {
